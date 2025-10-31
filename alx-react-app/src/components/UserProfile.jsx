@@ -1,5 +1,3 @@
-// src/components/UserProfile.jsx
-
 const UserProfile = (props) => {
   return (
     <div style={{ border: '1px solid #ccc', padding: '15px', margin: '15px', borderRadius: '8px' }}>

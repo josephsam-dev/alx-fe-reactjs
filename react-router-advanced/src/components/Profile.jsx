@@ -1,13 +1,19 @@
-// src/components/UserProfile.jsx
-import { useParams } from "react-router-dom";
+// src/components/Profile.jsx
 
-export default function UserProfile() {
-  const { userId } = useParams(); // Grab the dynamic part from URL
+// 1️⃣ Imports go here at the top
+import { Routes, Route } from "react-router-dom";
+import ProfileDetails from "./ProfileDetails";
+import ProfileSettings from "./ProfileSettings";
 
+// 2️⃣ Component definition
+export default function Profile() {
   return (
     <div>
-      <h2>User Profile</h2>
-      <p>Showing information for user ID: {userId}</p>
+      <h2>Profile Page</h2>
+      <Routes>
+        <Route path="details" element={<ProfileDetails />} />
+        <Route path="settings" element={<ProfileSettings />} />
+      </Routes>
     </div>
   );
 }

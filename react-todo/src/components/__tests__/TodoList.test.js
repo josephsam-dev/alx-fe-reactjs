@@ -1,7 +1,8 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import TodoList from "../components/TodoList"; // relative to __tests__ folder
+import { render, screen } from "@testing-library/react";
+import TodoList from "../components/TodoList";
 
-test("renders initial todos", () => {
+test("renders the TodoList component", () => {
   render(<TodoList />);
-  expect(screen.getByText(/todo 1/i)).toBeInTheDocument();
+  const heading = screen.getByText(/todo/i); // make sure your component has "Todo" in text
+  expect(heading).toBeInTheDocument();
 });

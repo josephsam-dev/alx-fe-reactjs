@@ -1,4 +1,5 @@
-// src/App.jsx
+
+import TodoList from "../src/components/TodoList";// src/App.jsx
 import React, { useState } from "react";
 import TodoList from "./components/TodoList";
 import reactLogo from './assets/react.svg';

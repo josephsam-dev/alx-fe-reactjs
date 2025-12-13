@@ -1,3 +1,4 @@
+import TodoList from "../src/components/TodoList"; // if __tests__ is in project root
 
 import TodoList from "../src/components/TodoList";// src/App.jsx
 import React, { useState } from "react";

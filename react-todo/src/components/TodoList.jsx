@@ -11,20 +11,14 @@ function TodoList() {
   const addTodo = (e) => {
     e.preventDefault();
     if (!newTodo.trim()) return;
-
-    setTodos([
-      ...todos,
-      { id: Date.now(), text: newTodo, completed: false },
-    ]);
+    setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
     setNewTodo("");
   };
 
   const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, completed: !todo.completed }
-          : todo
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
@@ -36,7 +30,6 @@ function TodoList() {
   return (
     <div>
       <h2>Todo List</h2>
-
       <form onSubmit={addTodo}>
         <input
           placeholder="Add todo"
@@ -45,7 +38,6 @@ function TodoList() {
         />
         <button type="submit">Add</button>
       </form>
-
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>

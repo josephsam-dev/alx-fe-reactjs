@@ -1,22 +1,30 @@
-// src/__tests__/TodoList.test.jsx
-import { render, screen, fireEvent } from "@testing-library/react";
-import TodoList from "../TodoList";
+import { render, screen, fireEvent } from '@testing-library/react';
+import TodoList from '../components/TodoList';
 
-describe("TodoList Component", () => {
-  test("renders initial todos", () => {
-    render(<TodoList />);
-    // Replace with an actual todo from your component
-    expect(screen.getByText("Learn React")).toBeInTheDocument();
-  });
+test('renders initial todos', () => {
+  render(<TodoList />);
+  const todoItem = screen.getByText(/first todo/i); // adjust to match your demo todos
+  expect(todoItem).toBeInTheDocument();
+});
 
-  test("adds a new todo", () => {
-    render(<TodoList />);
-    const input = screen.getByPlaceholderText("Add new todo");
-    const button = screen.getByText("Add");
+test('can add a new todo', () => {
+  render(<TodoList />);
+  const input = screen.getByPlaceholderText(/add todo/i); // your input placeholder
+  fireEvent.change(input, { target: { value: 'New Todo' } });
+  fireEvent.click(screen.getByText(/add/i));
+  expect(screen.getByText('New Todo')).toBeInTheDocument();
+});
 
-    fireEvent.change(input, { target: { value: "Write tests" } });
-    fireEvent.click(button);
+test('can toggle a todo', () => {
+  render(<TodoList />);
+  const todo = screen.getByText(/first todo/i);
+  fireEvent.click(todo);
+  expect(todo).toHaveClass('completed'); // depends on your completed class
+});
 
-    expect(screen.getByText("Write tests")).toBeInTheDocument();
-  });
+test('can delete a todo', () => {
+  render(<TodoList />);
+  const todo = screen.getByText(/first todo/i);
+  fireEvent.click(screen.getByText(/delete/i)); // your delete button
+  expect(todo).not.toBeInTheDocument();
 });

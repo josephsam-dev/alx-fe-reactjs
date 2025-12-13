@@ -1,25 +1,13 @@
 // src/components/ProtectedRoute.jsx
-import { Navigate } from "react-router-dom";
-import { isAuthenticated } from "./auth";
+import { Navigate, Outlet } from "react-router-dom";
+import useAuth from "../hooks/useAuth"; // <-- must match exact path
 
-export default function ProtectedRoute({ children }) {
-  if (!isAuthenticated()) {
-    // Redirect to home if not logged in
+export default function ProtectedRoute() {
+  const user = useAuth();
+
+  if (!user?.loggedIn) {
     return <Navigate to="/" replace />;
   }
-  return children;
-}
-import ProtectedRoute from "./components/ProtectedRoute";
 
-// inside <Routes> in App.jsx
-<Route
-  path="profile"
-  element={
-    <ProtectedRoute>
-      <Profile />
-    </ProtectedRoute>
-  }
->
-  <Route path="details" element={<ProfileDetails />} />
-  <Route path="settings" element={<ProfileSettings />} />
-</Route>
+  return <Outlet />;
+}

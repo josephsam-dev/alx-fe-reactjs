@@ -1,22 +1,29 @@
 import { useState } from "react";
 
 function RegistrationForm() {
-  // Separate state variables
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required");
-      return;
-    }
+    let validationErrors = {};
 
-    setError("");
+    // Basic validation logic
+    if (!username) validationErrors.username = "Username is required";
+    if (!email) validationErrors.email = "Email is required";
+    if (!password) validationErrors.password = "Password is required";
+
+    setErrors(validationErrors);
+
+    // Stop submission if any errors exist
+    if (Object.keys(validationErrors).length > 0) return;
+
+    // Success
     alert(`Registration successful!\nUsername: ${username}\nEmail: ${email}`);
+
     // Reset form
     setUsername("");
     setEmail("");
@@ -26,31 +33,39 @@ function RegistrationForm() {
   return (
     <form onSubmit={handleSubmit}>
       <h2>User Registration</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        value={username}          // ✅ checker wants this
-        onChange={(e) => setUsername(e.target.value)}
-      />
+      <div>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        {errors.username && <div style={{ color: "red" }}>{errors.username}</div>}
+      </div>
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={email}             // ✅ checker wants this
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {errors.email && <div style={{ color: "red" }}>{errors.email}</div>}
+      </div>
 
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={password}          // ✅ checker wants this
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {errors.password && <div style={{ color: "red" }}>{errors.password}</div>}
+      </div>
 
       <button type="submit">Register</button>
     </form>
